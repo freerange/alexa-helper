@@ -58,6 +58,10 @@ provider:
 functions:
   handler:
     handler: index.handler
+    events:
+      - alexaSkill:
+          appId: amzn1.ask.skill.36153e2a-f214-4e29-a08a-373b4e92d3e1
+          enabled: true
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
