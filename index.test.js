@@ -40,8 +40,9 @@ describe('The assignment intent', () => {
     index.handler(event, context, callback);
     index.handler(event, context, callback);
 
-    const result = callback.mock.calls[3][1];
-    expect(result.sessionAttributes.assigned.sort()).toEqual([ 'Ben', 'Chris L', 'Chris R', 'James' ])
+    const lastResult = callback.mock.calls.pop()[1];
+    expect(lastResult.sessionAttributes.assigned.sort()).toEqual([ 'Ben', 'Chris L', 'Chris R', 'James' ])
+  });
 
   test('informs the user that there are no people available when called 5 times', () => {
     index.handler(event, context, callback);
