@@ -54,4 +54,15 @@ describe('The assignment intent', () => {
     const lastResult = callback.mock.calls.pop()[1]
     expect(lastResult.response.outputSpeech.ssml).toBe('<speak> There are no people available to assign </speak>')
   });
+
+  test('ends the session when called 5 times', () => {
+    index.handler(event, context, callback);
+    index.handler(event, context, callback);
+    index.handler(event, context, callback);
+    index.handler(event, context, callback);
+    index.handler(event, context, callback);
+
+    const lastResult = callback.mock.calls.pop()[1]
+    expect(lastResult.response.shouldEndSession).toBeTrue
+  });
 });
