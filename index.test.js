@@ -42,5 +42,15 @@ describe('The assignment intent', () => {
 
     const result = callback.mock.calls[3][1];
     expect(result.sessionAttributes.assigned.sort()).toEqual([ 'Ben', 'Chris L', 'Chris R', 'James' ])
+
+  test('informs the user that there are no people available when called 5 times', () => {
+    index.handler(event, context, callback);
+    index.handler(event, context, callback);
+    index.handler(event, context, callback);
+    index.handler(event, context, callback);
+    index.handler(event, context, callback);
+
+    const lastResult = callback.mock.calls.pop()[1]
+    expect(lastResult.response.outputSpeech.ssml).toBe('<speak> There are no people available to assign </speak>')
   });
 });
