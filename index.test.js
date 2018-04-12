@@ -33,4 +33,14 @@ describe('The assignment intent', () => {
     const result = callback.mock.calls[0][1];
     expect(result.response.shouldEndSession).toBeFalse
   });
+
+  test('does not repeat the same person when called 4 times', () => {
+    index.handler(event, context, callback);
+    index.handler(event, context, callback);
+    index.handler(event, context, callback);
+    index.handler(event, context, callback);
+
+    const result = callback.mock.calls[3][1];
+    expect(result.sessionAttributes.assigned.sort()).toEqual([ 'Ben', 'Chris L', 'Chris R', 'James' ])
+  });
 });
