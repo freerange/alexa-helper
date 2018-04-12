@@ -44,25 +44,23 @@ describe('The assignment intent', () => {
     expect(lastResult.sessionAttributes.assigned.sort()).toEqual([ 'Ben', 'Chris L', 'Chris R', 'James' ])
   });
 
-  test('informs the user that there are no people available when called 5 times', () => {
-    index.handler(event, context, callback);
-    index.handler(event, context, callback);
-    index.handler(event, context, callback);
-    index.handler(event, context, callback);
-    index.handler(event, context, callback);
+  describe('when called 5 times', () => {
+    beforeEach(() => {
+      index.handler(event, context, callback);
+      index.handler(event, context, callback);
+      index.handler(event, context, callback);
+      index.handler(event, context, callback);
+      index.handler(event, context, callback);
+    });
 
-    const lastResult = callback.mock.calls.pop()[1]
-    expect(lastResult.response.outputSpeech.ssml).toBe('<speak> There are no people available to assign </speak>')
-  });
+    test('informs the user that there are no people available', () => {
+      const lastResult = callback.mock.calls.pop()[1]
+      expect(lastResult.response.outputSpeech.ssml).toBe('<speak> There are no people available to assign </speak>')
+    });
 
-  test('ends the session when called 5 times', () => {
-    index.handler(event, context, callback);
-    index.handler(event, context, callback);
-    index.handler(event, context, callback);
-    index.handler(event, context, callback);
-    index.handler(event, context, callback);
-
-    const lastResult = callback.mock.calls.pop()[1]
-    expect(lastResult.response.shouldEndSession).toBeTrue
+    test('ends the session', () => {
+      const lastResult = callback.mock.calls.pop()[1]
+      expect(lastResult.response.shouldEndSession).toBeTrue
+    });
   });
 });
