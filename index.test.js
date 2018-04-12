@@ -4,11 +4,11 @@ const session = {
     'applicationId': 'amzn1.ask.skill.36153e2a-f214-4e29-a08a-373b4e92d3e1' },
   'user': { 'userId': 'user-id' }
 };
+const context = { };
 
 describe('The help intent', () => {
   const event = { 'session': session,
                   'request': { 'locale': 'en-US', 'type': 'IntentRequest', 'intent': {'name': 'AMAZON.HelpIntent' } } };
-  const context = { };
   const callback = jest.fn();
 
   beforeEach(() => {
@@ -26,7 +26,6 @@ describe('The help intent', () => {
 describe('The assignment intent', () => {
   const event = { 'session': session,
                   'request': { 'locale': 'en-US', 'type': 'IntentRequest', 'intent': {'name': 'assignment' } } };
-  const context = { };
   const callback = jest.fn();
 
   beforeEach(() => {
