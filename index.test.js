@@ -25,4 +25,11 @@ describe('The assignment intent', () => {
     const result = callback.mock.calls[0][1];
     expect(result.sessionAttributes.assigned.length).toBe(1)
   });
+
+  test('it sets the shouldEndSession parameter to false', () => {
+    index.handler(event, context, callback);
+
+    const result = callback.mock.calls[0][1];
+    expect(result.response.shouldEndSession).toBeFalse
+  });
 });
