@@ -1,5 +1,26 @@
 const index = require('./index');
 
+describe('The help intent', () => {
+  const event = { 'request': { 'locale': 'en-US' },
+                  'session': { 'application': { 'applicationId': 'amzn1.ask.skill.36153e2a-f214-4e29-a08a-373b4e92d3e1' },
+                               'user': { 'userId': 'user-id' } },
+                  'request': { 'type': 'IntentRequest', 'intent': {'name': 'AMAZON.HelpIntent' } }
+                };
+  const context = { };
+  const callback = jest.fn();
+
+  beforeEach(() => {
+    event.session.attributes = { };
+  });
+
+  test('it says some help text', () => {
+    index.handler(event, context, callback);
+
+    const result = callback.mock.calls[0][1];
+    expect(result.response.outputSpeech.ssml).toBe('<speak> You can say assign someone, or, you can say exit... What can I help you with? </speak>')
+  });
+});
+
 describe('The assignment intent', () => {
   const event = { 'request': { 'locale': 'en-US' },
                   'session': { 'application': { 'applicationId': 'amzn1.ask.skill.36153e2a-f214-4e29-a08a-373b4e92d3e1' },
